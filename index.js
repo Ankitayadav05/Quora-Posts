@@ -7,6 +7,8 @@ const methodOverride =require("method-override");
 
 app.use(express.urlencoded({extended:true}));
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"));
@@ -29,6 +31,10 @@ let posts=[
     content:"i got selected for first intenship!",
   }
 ];
+app.get("/", (req, res) => {
+  res.redirect("/posts"); // Or render a landing page if you want
+});
+
 app.get("/posts",(req,res)=>{
   res.render("index.ejs",{posts});
 });
